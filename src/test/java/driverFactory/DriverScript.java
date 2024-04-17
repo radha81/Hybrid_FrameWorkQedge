@@ -103,6 +103,27 @@ public void startTest() throws Throwable
 						FunctionLibrary.stockTable();
 						logger.log(LogStatus.INFO, Description);
 					}
+					if(Object_Type.equalsIgnoreCase("captuersupplier"))
+					{
+						FunctionLibrary.captuersupplier(LName, Lvalue);
+						logger.log(LogStatus.INFO, Description);
+					}
+					if(Object_Type.equalsIgnoreCase("supplierTable"))
+					{
+						FunctionLibrary.supplierTable();
+						logger.log(LogStatus.INFO, Description);
+					}
+					if(Object_Type.equalsIgnoreCase("captuerCustomer"))
+					{
+						FunctionLibrary.captuerCustomer(LName, Lvalue);
+						logger.log(LogStatus.INFO, Description);
+					}
+					if(Object_Type.equalsIgnoreCase("customerTable"))
+						
+					{
+						FunctionLibrary.customerTable();
+						logger.log(LogStatus.INFO, Description);
+					}
 					//write as pass into TCModule sheet in status cell
 					xl.setCellData(TCModule, j, 5, "Pass", outputpath);
 					logger.log(LogStatus.PASS, Description);

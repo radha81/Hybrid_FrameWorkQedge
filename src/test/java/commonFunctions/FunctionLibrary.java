@@ -228,6 +228,94 @@ public class FunctionLibrary {
 		}
 
 	}
+	//method for supplier number to capture into notepad
+	public static void captuersupplier(String LocatorName,String LocatorValue)throws Throwable
+	{
+		String suppliernumber ="";
+		if(LocatorName.equalsIgnoreCase("xpath"))
+		{
+			suppliernumber =driver.findElement(By.xpath(LocatorValue)).getAttribute("value");
+		}
+		if(LocatorName.equalsIgnoreCase("name"))
+		{
+			suppliernumber =driver.findElement(By.name(LocatorValue)).getAttribute("value");
+		}
+		if(LocatorName.equalsIgnoreCase("id"))
+		{
+			suppliernumber =driver.findElement(By.id(LocatorValue)).getAttribute("value");
+		}
+		FileWriter fw = new FileWriter("./CaptureData/suppliernumber.txt");
+		BufferedWriter bw = new BufferedWriter(fw);
+		bw.write(suppliernumber);
+		bw.flush();
+		bw.close();
+	}
+	//method for supplier table
+	public static void supplierTable()throws Throwable
+	{
+		FileReader fr = new FileReader("./CaptureData/suppliernumber.txt");
+		BufferedReader br = new BufferedReader(fr);
+		String Exp_Data = br.readLine();
+		if(!driver.findElement(By.xpath(conpro.getProperty("search-textbox"))).isDisplayed())
+			//click ssearch panel button
+			driver.findElement(By.xpath(conpro.getProperty("search-panel"))).click();
+		driver.findElement(By.xpath(conpro.getProperty("search-textbox"))).clear();
+		driver.findElement(By.xpath(conpro.getProperty("search-textbox"))).sendKeys(Exp_Data);
+		driver.findElement(By.xpath(conpro.getProperty("search-button"))).click();
+		Thread.sleep(3000);
+		String Act_Data = driver.findElement(By.xpath("//table[@class='table ewTable']/tbody/tr[1]/td[6]/div/span/span")).getText();
+		Reporter.log(Act_Data+"      "+Exp_Data,true);
+		try {
+		Assert.assertEquals(Act_Data, Exp_Data, "Supplier Number is Not Matching");
+		}catch(AssertionError a)
+		{
+			Reporter.log(a.getMessage(),true);
+		}
+	}
+	//method for customer number to capture into notepad
+		public static void captuerCustomer(String LocatorName,String LocatorValue)throws Throwable
+		{
+			String customernumber ="";
+			if(LocatorName.equalsIgnoreCase("xpath"))
+			{
+				customernumber =driver.findElement(By.xpath(LocatorValue)).getAttribute("value");
+			}
+			if(LocatorName.equalsIgnoreCase("name"))
+			{
+				customernumber =driver.findElement(By.name(LocatorValue)).getAttribute("value");
+			}
+			if(LocatorName.equalsIgnoreCase("id"))
+			{
+				customernumber =driver.findElement(By.id(LocatorValue)).getAttribute("value");
+			}
+			FileWriter fw = new FileWriter("./CaptureData/customernumber.txt");
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(customernumber);
+			bw.flush();
+			bw.close();
+		}
+		//method for supplier table
+		public static void customerTable()throws Throwable
+		{
+			FileReader fr = new FileReader("./CaptureData/customernumber.txt");
+			BufferedReader br = new BufferedReader(fr);
+			String Exp_Data = br.readLine();
+			if(!driver.findElement(By.xpath(conpro.getProperty("search-textbox"))).isDisplayed())
+				//click ssearch panel button
+				driver.findElement(By.xpath(conpro.getProperty("search-panel"))).click();
+			driver.findElement(By.xpath(conpro.getProperty("search-textbox"))).clear();
+			driver.findElement(By.xpath(conpro.getProperty("search-textbox"))).sendKeys(Exp_Data);
+			driver.findElement(By.xpath(conpro.getProperty("search-button"))).click();
+			Thread.sleep(3000);
+			String Act_Data = driver.findElement(By.xpath("//table[@class='table ewTable']/tbody/tr[1]/td[5]/div/span/span")).getText();
+			Reporter.log(Act_Data+"      "+Exp_Data,true);
+			try {
+			Assert.assertEquals(Act_Data, Exp_Data, "Customer Number is Not Matching");
+			}catch(AssertionError a)
+			{
+				Reporter.log(a.getMessage(),true);
+			}
+		}
 }
 
 
